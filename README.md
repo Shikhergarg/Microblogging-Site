@@ -43,9 +43,7 @@ b. Post: Search result works only on hashtags.
 a. Identify most trending hashtag. (Logic should include both most 	searched keyword and most hashed keyword)
 b. Total Tweets today by all users.
 c. Most tweets by which person till date.
-d. Most liked tweet till dat
+d. Most liked tweet till date.
 
-
-The following diagram shows a high-level structure and data flow for the application.
 
 
