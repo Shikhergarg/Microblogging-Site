@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GlitterDBModelStoreContainer" CdmEntityContainer="GlitterDBEntities">
+    <EntitySetMapping Name="Follows">
+      <EntityTypeMapping TypeName="GlitterDBModel.Follow">
+        <MappingFragment StoreEntitySet="Follow">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="FollowerId" ColumnName="FollowerId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TweetHashMappers">
+      <EntityTypeMapping TypeName="GlitterDBModel.TweetHashMapper">
+        <MappingFragment StoreEntitySet="TweetHashMapper">
+          <ScalarProperty Name="HashId" ColumnName="HashId" />
+          <ScalarProperty Name="TweetId" ColumnName="TweetId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tweets">
+      <EntityTypeMapping TypeName="GlitterDBModel.Tweet">
+        <MappingFragment StoreEntitySet="Tweets">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DislikeCount" ColumnName="DislikeCount" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="TweetId" ColumnName="TweetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="GlitterDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hashes">
+      <EntityTypeMapping TypeName="GlitterDBModel.Hash">
+        <MappingFragment StoreEntitySet="Hash">
+          <ScalarProperty Name="HashCount" ColumnName="HashCount" />
+          <ScalarProperty Name="SearchCount" ColumnName="SearchCount" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="HashId" ColumnName="HashId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LikeDislikeMappers">
+      <EntityTypeMapping TypeName="GlitterDBModel.LikeDislikeMapper">
+        <MappingFragment StoreEntitySet="LikeDislikeMappers">
+          <ScalarProperty Name="Like" ColumnName="Like" />
+          <ScalarProperty Name="TweetId" ColumnName="TweetId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

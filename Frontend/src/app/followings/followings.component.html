@@ -1,0 +1,15 @@
+
+<div class="container" style="margin-top:13px;">
+    <div class="row content">
+    <div class="card col-3 mx-2 my-4 p-2" *ngFor = "let following of followings">
+   <img src="{{following.ImagePath}}"/><br />
+    <br />
+    <div class="following-username" >{{following.FirstName}} {{following.LastName}}</div>
+    <br />
+    <div class="unfollow" > 
+    <button class="btn" type="button" pButton (click)="unfollow(following)">Unfollow</button>
+    </div>
+    
+    </div>
+    </div>
+    </div>  

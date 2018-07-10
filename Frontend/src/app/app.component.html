@@ -1,0 +1,9 @@
+<!-- <p-breadcrumb [model]="items"></p-breadcrumb> -->
+<div *ngIf="isLoggedIn$ | async">
+        <div *ngIf="items">
+            <p-tabMenu [model]="items"></p-tabMenu>
+        </div>
+        <button (click)="Logout()" >Logout</button>     
+</div>
+
+<router-outlet></router-outlet>

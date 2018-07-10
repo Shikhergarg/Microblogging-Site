@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GlitterDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="GlitterDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Follows" EntityType="GlitterDBModel.Follow" />
+    <EntitySet Name="TweetHashMappers" EntityType="GlitterDBModel.TweetHashMapper" />
+    <EntitySet Name="Tweets" EntityType="GlitterDBModel.Tweet" />
+    <EntitySet Name="Users" EntityType="GlitterDBModel.User" />
+    <AssociationSet Name="FK_Follow_Users" Association="GlitterDBModel.FK_Follow_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Follow" EntitySet="Follows" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TweetHashMapper_Tweets" Association="GlitterDBModel.FK_TweetHashMapper_Tweets">
+      <End Role="Tweet" EntitySet="Tweets" />
+      <End Role="TweetHashMapper" EntitySet="TweetHashMappers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tweets_Users" Association="GlitterDBModel.FK_Tweets_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Tweet" EntitySet="Tweets" />
+    </AssociationSet>
+    <EntitySet Name="Hashes" EntityType="GlitterDBModel.Hash" />
+    <AssociationSet Name="FK_TweetHashMapper_Hash" Association="GlitterDBModel.FK_TweetHashMapper_Hash">
+      <End Role="Hash" EntitySet="Hashes" />
+      <End Role="TweetHashMapper" EntitySet="TweetHashMappers" />
+    </AssociationSet>
+    <EntitySet Name="LikeDislikeMappers" EntityType="GlitterDBModel.LikeDislikeMapper" />
+    <AssociationSet Name="FK_UserTweetMapper_Tweets" Association="GlitterDBModel.FK_UserTweetMapper_Tweets">
+      <End Role="Tweet" EntitySet="Tweets" />
+      <End Role="LikeDislikeMapper" EntitySet="LikeDislikeMappers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTweetMapper_Users" Association="GlitterDBModel.FK_UserTweetMapper_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="LikeDislikeMapper" EntitySet="LikeDislikeMappers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Follow">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="FollowerId" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="GlitterDBModel.FK_Follow_Users" FromRole="Follow" ToRole="User" />
+  </EntityType>
+  <EntityType Name="TweetHashMapper">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TweetId" Type="Int32" Nullable="false" />
+    <Property Name="HashId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tweet" Relationship="GlitterDBModel.FK_TweetHashMapper_Tweets" FromRole="TweetHashMapper" ToRole="Tweet" />
+    <NavigationProperty Name="Hash" Relationship="GlitterDBModel.FK_TweetHashMapper_Hash" FromRole="TweetHashMapper" ToRole="Hash" />
+  </EntityType>
+  <EntityType Name="Tweet">
+    <Key>
+      <PropertyRef Name="TweetId" />
+    </Key>
+    <Property Name="TweetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PostDate" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="LikeCount" Type="Int32" />
+    <Property Name="DislikeCount" Type="Int32" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TweetHashMappers" Relationship="GlitterDBModel.FK_TweetHashMapper_Tweets" FromRole="Tweet" ToRole="TweetHashMapper" />
+    <NavigationProperty Name="User" Relationship="GlitterDBModel.FK_Tweets_Users" FromRole="Tweet" ToRole="User" />
+    <NavigationProperty Name="LikeDislikeMappers" Relationship="GlitterDBModel.FK_UserTweetMapper_Tweets" FromRole="Tweet" ToRole="LikeDislikeMapper" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ContactNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Follows" Relationship="GlitterDBModel.FK_Follow_Users" FromRole="User" ToRole="Follow" />
+    <NavigationProperty Name="Tweets" Relationship="GlitterDBModel.FK_Tweets_Users" FromRole="User" ToRole="Tweet" />
+    <NavigationProperty Name="LikeDislikeMappers" Relationship="GlitterDBModel.FK_UserTweetMapper_Users" FromRole="User" ToRole="LikeDislikeMapper" />
+  </EntityType>
+  <Association Name="FK_Follow_Users">
+    <End Type="GlitterDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="GlitterDBModel.Follow" Role="Follow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Follow">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TweetHashMapper_Tweets">
+    <End Type="GlitterDBModel.Tweet" Role="Tweet" Multiplicity="1" />
+    <End Type="GlitterDBModel.TweetHashMapper" Role="TweetHashMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tweet">
+        <PropertyRef Name="TweetId" />
+      </Principal>
+      <Dependent Role="TweetHashMapper">
+        <PropertyRef Name="TweetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tweets_Users">
+    <End Type="GlitterDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="GlitterDBModel.Tweet" Role="Tweet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Tweet">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Hash">
+    <Key>
+      <PropertyRef Name="HashId" />
+    </Key>
+    <Property Name="HashId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SearchCount" Type="Int32" />
+    <Property Name="HashCount" Type="Int32" />
+    <NavigationProperty Name="TweetHashMappers" Relationship="GlitterDBModel.FK_TweetHashMapper_Hash" FromRole="Hash" ToRole="TweetHashMapper" />
+  </EntityType>
+  <Association Name="FK_TweetHashMapper_Hash">
+    <End Type="GlitterDBModel.Hash" Role="Hash" Multiplicity="1" />
+    <End Type="GlitterDBModel.TweetHashMapper" Role="TweetHashMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hash">
+        <PropertyRef Name="HashId" />
+      </Principal>
+      <Dependent Role="TweetHashMapper">
+        <PropertyRef Name="HashId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LikeDislikeMapper">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="TweetId" Type="Int32" Nullable="false" />
+    <Property Name="Like" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Tweet" Relationship="GlitterDBModel.FK_UserTweetMapper_Tweets" FromRole="LikeDislikeMapper" ToRole="Tweet" />
+    <NavigationProperty Name="User" Relationship="GlitterDBModel.FK_UserTweetMapper_Users" FromRole="LikeDislikeMapper" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserTweetMapper_Tweets">
+    <End Type="GlitterDBModel.Tweet" Role="Tweet" Multiplicity="1" />
+    <End Type="GlitterDBModel.LikeDislikeMapper" Role="LikeDislikeMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tweet">
+        <PropertyRef Name="TweetId" />
+      </Principal>
+      <Dependent Role="LikeDislikeMapper">
+        <PropertyRef Name="TweetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTweetMapper_Users">
+    <End Type="GlitterDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="GlitterDBModel.LikeDislikeMapper" Role="LikeDislikeMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="LikeDislikeMapper">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

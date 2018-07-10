@@ -1,0 +1,9 @@
+<br><br>
+<input #searchText type="text">
+<button (click)="Search(searchText.value)">Search</button>
+
+<br><br>
+<p-tabMenu [model]="items"></p-tabMenu> 
+
+<!-- <app-search-in-tweet [SearchText]="searchedText"></app-search-in-tweet> -->
+<router-outlet></router-outlet> 
